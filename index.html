@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free QR Code Generator - Create custom QR codes for URLs instantly. Download high-quality QR code images for free.">
+    <meta name="keywords" content="QR code, generator, free, URL, download, digital">
+    <meta name="author" content="Free QR Code">
+    <title>Free QR Code Generator - Create & Download Custom QR Codes</title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/free-qr-code/">
+    <meta property="og:title" content="Free QR Code Generator">
+    <meta property="og:description" content="Create custom QR codes for URLs instantly. Download high-quality QR code images for free.">
+    <meta property="og:image" content="https://yourusername.github.io/free-qr-code/preview-image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourusername.github.io/free-qr-code/">
+    <meta property="twitter:title" content="Free QR Code Generator">
+    <meta property="twitter:description" content="Create custom QR codes for URLs instantly. Download high-quality QR code images for free.">
+    <meta property="twitter:image" content="https://yourusername.github.io/free-qr-code/preview-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔳</text></svg>">
+    
+    <style>
+        :root {
+            --primary-pink: #fd1d9d;
+            --primary-purple: #833ab4;
+            --primary-blue: #405de6;
+            --gradient: linear-gradient(45deg, var(--primary-pink), var(--primary-purple), var(--primary-blue));
+            --light-bg: #f8f9fa;
+            --dark-text: #262626;
+            --light-text: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: var(--gradient);
+            color: var(--light-text);
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            z-index: 1;
+            animation: shine 3s infinite linear;
+        }
+        
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Ad Banner */
+        .ad-banner {
+            background-color: #f1f1f1;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 2rem auto;
+            text-align: center;
+            color: #888;
+            border: 2px dashed #ddd;
+            max-width: 728px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Social Bar Ads */
+        .social-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 1.5rem 0;
+        }
+        
+        .social-ad {
+            width: 320px;
+            height: 50px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            border: 1px dashed #ddd;
+        }
+        
+        .generator-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        
+        .generator-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        input[type="url"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e6e6e6;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        input[type="url"]:focus {
+            border-color: var(--primary-purple);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(131, 58, 180, 0.2);
+        }
+        
+        .btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn i {
+            font-size: 1.2rem;
+        }
+        
+        .result {
+            display: none;
+            text-align: center;
+            margin-top: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .qr-code {
+            margin: 1.5rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            display: inline-block;
+        }
+        
+        #qrCanvas {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .download-btn {
+            margin-top: 1.5rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            background: var(--gradient);
+            color: var(--light-text);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        
+        .feature {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature i {
+            font-size: 2.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        .feature h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-purple);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .generator-card {
+                padding: 1.5rem;
+            }
+            
+            .social-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Loading Animation */
+        .loader {
+            display: none;
+            width: 48px;
+            height: 48px;
+            margin: 1rem auto;
+            border: 5px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 5px solid var(--primary-pink);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Free QR Code Generator</h1>
+            <p class="tagline">Create stylish QR codes for your URLs in seconds</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Ad Banner Placeholder -->
+        <div class="ad-banner">
+            Advertisement Banner (728x90)
+        </div>
+
+        <div class="generator-card">
+            <h2>Create Your QR Code</h2>
+            <p>Enter your URL below to generate a QR code</p>
+            
+            <div class="input-group">
+                <label for="urlInput">Website URL</label>
+                <input type="url" id="urlInput" placeholder="https://example.com" required>
+            </div>
+            
+            <button id="generateBtn" class="btn">
+                <i>🔳</i> Generate QR Code
+            </button>
+            
+            <div class="loader" id="loader"></div>
+            
+            <div class="result" id="result">
+                <h3>Your QR Code is Ready!</h3>
+                <div class="qr-code">
+                    <canvas id="qrCanvas"></canvas>
+                </div>
+                <br>
+                <button id="downloadBtn" class="download-btn">
+                    <i>📥</i> Download QR Code
+                </button>
+            </div>
+        </div>
+
+        <!-- Social Bar Ads Placeholder -->
+        <div class="social-bar">
+            <div class="social-ad">Advertisement (320x50)</div>
+            <div class="social-ad">Advertisement (320x50)</div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <i>⚡</i>
+                <h3>Fast Generation</h3>
+                <p>Create QR codes instantly with our optimized algorithm</p>
+            </div>
+            <div class="feature">
+                <i>📱</i>
+                <h3>Mobile Friendly</h3>
+                <p>Works perfectly on all devices, from mobile to desktop</p>
+            </div>
+            <div class="feature">
+                <i>🔒</i>
+                <h3>Completely Free</h3>
+                <p>Generate and download as many QR codes as you need</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2023 Free QR Code Generator. All rights reserved.</p>
+    </footer>
+
+    <!-- QR Code Generation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.7/qrcode.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlInput = document.getElementById('urlInput');
+            const generateBtn = document.getElementById('generateBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const resultDiv = document.getElementById('result');
+            const qrCanvas = document.getElementById('qrCanvas');
+            const loader = document.getElementById('loader');
+            
+            // Generate QR code
+            generateBtn.addEventListener('click', function() {
+                const url = urlInput.value.trim();
+                
+                if (!url) {
+                    alert('Please enter a valid URL');
+                    return;
+                }
+                
+                // Show loader
+                loader.style.display = 'block';
+                resultDiv.style.display = 'none';
+                
+                // Simulate processing time for better UX
+                setTimeout(() => {
+                    try {
+                        // Generate QR code
+                        const typeNumber = 0; // Auto detect type
+                        const errorCorrectionLevel = 'H'; // High error correction
+                        const qr = qrcode(typeNumber, errorCorrectionLevel);
+                        qr.addData(url);
+                        qr.make();
+                        
+                        // Set canvas size
+                        const cellSize = 8;
+                        const margin = 1;
+                        const size = qr.getModuleCount() * cellSize + margin * 2;
+                        qrCanvas.width = size;
+                        qrCanvas.height = size;
+                        
+                        // Draw QR code on canvas
+                        const ctx = qrCanvas.getContext('2d');
+                        
+                        // Create background
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fillRect(0, 0, size, size);
+                        
+                        // Create gradient for QR code
+                        const gradient = ctx.createLinearGradient(0, 0, size, size);
+                        gradient.addColorStop(0, '#fd1d9d');
+                        gradient.addColorStop(0.5, '#833ab4');
+                        gradient.addColorStop(1, '#405de6');
+                        
+                        // Draw QR code
+                        for (let row = 0; row < qr.getModuleCount(); row++) {
+                            for (let col = 0; col < qr.getModuleCount(); col++) {
+                                if (qr.isDark(row, col)) {
+                                    ctx.fillStyle = gradient;
+                                    ctx.fillRect(
+                                        col * cellSize + margin,
+                                        row * cellSize + margin,
+                                        cellSize,
+                                        cellSize
+                                    );
+                                }
+                            }
+                        }
+                        
+                        // Hide loader and show result
+                        loader.style.display = 'none';
+                        resultDiv.style.display = 'block';
+                    } catch (error) {
+                        console.error('QR generation error:', error);
+                        alert('Error generating QR code. Please try again.');
+                        loader.style.display = 'none';
+                    }
+                }, 800);
+            });
+            
+            // Download QR code
+            downloadBtn.addEventListener('click', function() {
+                try {
+                    const link = document.createElement('a');
+                    link.download = 'free-qr-code.png';
+                    link.href = qrCanvas.toDataURL('image/png');
+                    link.click();
+                } catch (error) {
+                    console.error('Download error:', error);
+                    alert('Error downloading QR code. Please try again.');
+                }
+            });
+            
+            // Example QR code on load
+            urlInput.value = 'https://github.com';
+        });
+    </script>
+</body>
+</html>
