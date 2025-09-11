@@ -12,13 +12,11 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Free QR Code Generator">
     <meta property="og:description" content="Create custom QR codes for URLs instantly. Download high-quality QR code images for free.">
-    <meta property="og:image" content="https://yourusername.github.io/free-qr-code/preview-image.png">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="Free QR Code Generator">
     <meta property="twitter:description" content="Create custom QR codes for URLs instantly. Download high-quality QR code images for free.">
-    <meta property="twitter:image" content="https://yourusername.github.io/free-qr-code/preview-image.png">
     
     <style>
         :root {
@@ -284,13 +282,14 @@
             transform: translateY(-5px);
         }
         
-        .feature i {
+        .feature span {
             font-size: 2.5rem;
             background: var(--gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             margin-bottom: 1rem;
+            display: inline-block;
         }
         
         .feature h3 {
@@ -349,6 +348,52 @@
             border-radius: 8px;
             border-left: 4px solid #e74c3c;
         }
+        
+        .color-options {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px #ddd;
+            transition: all 0.2s ease;
+        }
+        
+        .color-option.active {
+            box-shadow: 0 0 0 2px var(--primary-purple);
+            transform: scale(1.1);
+        }
+        
+        .color-option.black {
+            background-color: #000000;
+        }
+        
+        .color-option.blue {
+            background-color: #405de6;
+        }
+        
+        .color-option.purple {
+            background-color: #833ab4;
+        }
+        
+        .color-option.pink {
+            background-color: #fd1d9d;
+        }
+        
+        .color-label {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 5px;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -372,6 +417,25 @@
             <div class="input-group">
                 <label for="textInput">Website URL or Text</label>
                 <input type="text" id="textInput" placeholder="https://example.com or any text" required>
+            </div>
+            
+            <div class="color-options">
+                <div>
+                    <div class="color-option black active" data-color="000000" title="Black"></div>
+                    <div class="color-label">Black</div>
+                </div>
+                <div>
+                    <div class="color-option blue" data-color="405de6" title="Blue"></div>
+                    <div class="color-label">Blue</div>
+                </div>
+                <div>
+                    <div class="color-option purple" data-color="833ab4" title="Purple"></div>
+                    <div class="color-label">Purple</div>
+                </div>
+                <div>
+                    <div class="color-option pink" data-color="fd1d9d" title="Pink"></div>
+                    <div class="color-label">Pink</div>
+                </div>
             </div>
             
             <button id="generateBtn" class="btn">
@@ -423,7 +487,6 @@
         <p>© 2023 Free QR Code Generator. All rights reserved.</p>
     </footer>
 
-    <!-- Using a more reliable QR code generation approach -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const textInput = document.getElementById('textInput');
@@ -433,6 +496,23 @@
             const qrCodeImage = document.getElementById('qrCodeImage');
             const loader = document.getElementById('loader');
             const errorMessage = document.getElementById('errorMessage');
+            const colorOptions = document.querySelectorAll('.color-option');
+            
+            let selectedColor = '000000'; // Default to black
+            
+            // Color selection
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove active class from all options
+                    colorOptions.forEach(opt => opt.classList.remove('active'));
+                    
+                    // Add active class to clicked option
+                    this.classList.add('active');
+                    
+                    // Set selected color
+                    selectedColor = this.getAttribute('data-color');
+                });
+            });
             
             // Generate QR code
             generateBtn.addEventListener('click', function() {
@@ -451,7 +531,7 @@
                 resultDiv.style.display = 'none';
                 
                 // Generate QR code using a reliable API
-                generateQRCode(text);
+                generateQRCode(text, selectedColor);
             });
             
             // Download QR code
@@ -473,9 +553,9 @@
             });
             
             // Function to generate QR code using a reliable API
-            function generateQRCode(text) {
-                // Using a reliable QR code generation API
-                const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(text)}&size=200x200&margin=15&bgcolor=F8F9FA&color=405DE6`;
+            function generateQRCode(text, color) {
+                // Using a reliable QR code generation API with color parameter
+                const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(text)}&size=200x200&margin=15&bgcolor=F8F9FA&color=${color}`;
                 
                 // Create image to test if the URL is valid
                 const img = new Image();
